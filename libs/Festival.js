@@ -14,6 +14,8 @@ class Festival {
             this.$dateFin = $("#dateFin");
             this.$type = $("#type");
 
+            
+
             this.markers = [];
             this.main = null;
     
@@ -47,6 +49,16 @@ class Festival {
             marker.addListener("click", function(){
                 infowindow.open(that.map, marker);
             });
+            
         }
+
+        filter( types ){
+                for(var marker of this.markers){
+                    marker.setVisible(false);
+                        if( marker.type == types ) {
+                            marker.setVisible(true);
+                        }
+                    }
+                 }
         
 }

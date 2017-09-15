@@ -13,9 +13,21 @@
     <header><h1>- Les festivals dans les Pyrénées-Orientales -</h1></header>
     <nav><button id="creerFestival">Creer un festival</button><button id="utilisateur">Voir les festivals</button><button id="utilisateur">Utilisateur</button>
     </nav>
-    <center> 
-    <div id="map"></div>
-    </center>
+    <div id="blocCarte">
+        <div id="choix">
+            <h1>LEGENDE:</h1>
+            <p>Vous pouvez cliquer sur une iconne pour faire apparaitre les festivals, selon leurs catégories</p>
+            <div id="iconne">
+                <button id="classique" class="butType"><img src="icon/classique.png"><p>Classique</p></button>
+                <button id="jazz" class="butType"><img src="icon/jazz.png"><p>Jazz</p></button>
+                <button id="rock" class="butType"><img src="icon/rock.png"><p>Rock</p></button>
+                <button id="metal" class="butType"><img src="icon/metal.png"><p>Metal</p></button>
+                <button id="pop" class="butType"><img src="icon/pop.png"><p>Pop</p></button>
+                <button id="lyrique" class="butType"><img src="icon/lyrique.png"><p>Lyrique</p></button>
+            </div>
+        </div>
+        <div id="map"></div>
+    </div>
     <div id="form">
             <label>Nom du festival: <input type="text" id="festName"></label>
             <label>Type de musique:

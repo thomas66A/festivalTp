@@ -17,7 +17,20 @@ festival.main = function(){
             
         }
     });
-
+    $(function(){
+        if(localStorage.getItem("festival")){
+            var festival_json = localStorage.getItem("festival");
+            var lesFestival = JSON.parse(festival_json);
+            //console.log(lesFestival);
+            for(var i = 0; i<lesFestival.length ; i++)
+                {
+                    for(var key in lesFestival[i]){
+                        var b = lesFestival[i][key];
+                        console.log(b);
+                    }
+                }
+        }
+    });
 };  
     
 $("#subFest").click(function(){ 
@@ -26,7 +39,6 @@ $("#subFest").click(function(){
         var title = $("#festName").val();
         var type = festival.$type.val();
         var dateDebut = $("#dateDebut").val();
-        console.log(dateDebut);
         var dateFin = $("#dateFin").val();
         var marker = festival.addMarker( latLng, title, type );
         var infos = "<div>";
@@ -36,14 +48,29 @@ $("#subFest").click(function(){
         infos += "<h4>Fin du festival" + dateFin + "</h4>";
         infos += "</div>";
         festival.addInfos( infos, marker );
+        var toStorage = [];
+        var stockage  = {
+            latLng : latLng,
+            title : title,
+            type : type,
+            infos : infos
+          };
+          if( localStorage.getItem('festival') ){
+            toStorage = JSON.parse(localStorage.getItem('festival'));
+          }
+          toStorage.push(stockage);
+          localStorage.setItem('festival', JSON.stringify(toStorage));
         $("#festName").val("");
-        festival.$type.val("Classique");
         $("#dateDebut").val("");
         $("#dateFin").val("");
         $("#gpsCoords").val("");
         $("#form").css("display","none");
         });
 
+$(".butType").click(function(){
+            var type = $(this).attr("id");
+            festival.filter(type);
+        });
 
 
 var dates = new Dates();
