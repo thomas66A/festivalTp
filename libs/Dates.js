@@ -5,6 +5,8 @@ class Dates {
             
             this.$dateDebut = $("#dateDebut");
             this.$dateFin = $("#dateFin");
+            this.$dateDebut1 = $("#dateDebut1");
+            this.$dateFin1 = $("#dateFin1");
     
             
     
@@ -27,6 +29,8 @@ class Dates {
     
             this.$dateDebut.datepicker( options );
             this.$dateFin.datepicker( options );
+            this.$dateDebut1.datepicker( options );
+            this.$dateFin1.datepicker( options );
     
         }
     }

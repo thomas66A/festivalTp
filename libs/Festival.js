@@ -17,6 +17,7 @@ class Festival {
             
 
             this.markers = [];
+            this.noms = [];
             this.main = null;
     
         }
@@ -65,5 +66,30 @@ class Festival {
             for(var marker of this.markers){
                 marker.setVisible(true);
             }
+        }
+
+        showByName(name){
+            for(var marker of this.markers){
+                marker.setVisible(false);
+                    if( marker.title == name ) {
+                        marker.setVisible(true);
+                        
+                    }
+                }
+        }
+
+        attrapeNom(){
+            $("#name").html("<option> </option>");
+            this.noms = [];
+            for(var marker of this.markers){
+                
+                var aPusher = marker.title;
+                this.noms.push(aPusher);
+            }
+            for(var y = 0; y < this.noms.length; y++){
+                var affiche = "<option value='" + this.noms[y] + "' class='change'>" + this.noms[y] + "</option>";
+                $("#name").append(affiche);
+            }
+            
         }
 }
