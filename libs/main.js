@@ -77,6 +77,9 @@ $("#subFest").click(function(){
         infos += "<h3>Type de musique: " + type + "</h3>";
         infos += "<h4>Debut du festival: <span id='debut'>" + dateDebut + "</span></h4>";
         infos += "<h4>Fin du festival: <span id='fin'>" + dateFin + "</h4>";
+        infos += "<button id='participe1'>Participez</button>";
+        infos += "<p id='participe2'>J'y participe</p>";
+        infos += "<p id='encours'>En cours</p>";
         infos += "</div>";
         festival.addInfos( infos, marker );
         var toStorage = [];
