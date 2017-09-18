@@ -3,7 +3,7 @@ $("#creerFestival").click(function(){
     $("#form").css("display","flex");
 });
 
-var festival = new Festival();``
+var festival = new Festival();
 var positionFestival = {};
 festival.main = function(){
     var position = [];
@@ -23,11 +23,28 @@ festival.main = function(){
             var lesFestival = JSON.parse(festival_json);
             //console.log(lesFestival);
             for(var i = 0; i<lesFestival.length ; i++)
-                {
+                {   var x=0;
                     for(var key in lesFestival[i]){
-                        var b = lesFestival[i][key];
-                        console.log(b);
+                        if(x==0){
+                            var lat = lesFestival[i][key]["lat"];
+                            var lng = lesFestival[i][key]["lng"];    
+                            var latLng = new google.maps.LatLng(lat,lng);   
+                        }
+                        if(x==1){
+                            var title = lesFestival[i][key];
+                        }
+                        if(x==2){
+                            var type = lesFestival[i][key];    
+                        }
+                        if(x==3){
+                            var infos = lesFestival[i][key];    
+                        }
+                        x++;
+                        
                     }
+                    
+                    var marker = festival.addMarker( latLng, title, type );
+                    festival.addInfos( infos, marker );    
                 }
         }
     });
@@ -71,6 +88,8 @@ $(".butType").click(function(){
             var type = $(this).attr("id");
             festival.filter(type);
         });
-
+$("#afficheFestivals").click(function(){
+    festival.showAll();
+})
 
 var dates = new Dates();

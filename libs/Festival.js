@@ -61,4 +61,9 @@ class Festival {
                     }
                  }
         
+        showAll(){
+            for(var marker of this.markers){
+                marker.setVisible(true);
+            }
+        }
 }
