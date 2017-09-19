@@ -30,8 +30,18 @@ class Festival {
             
             this.main(); 
         }
-        addMarker( position, title, type ){
-            this.icon = "icon/" + type + ".png";
+
+
+
+        addMarker( position, title, type, debut, fin ){
+            var dates = new Dates();
+            var img = dates.setTheIcon(debut, fin);
+            if(img == true){
+                this.icon = "icon/" + type + "2" + ".png";
+            }
+            else{
+                this.icon = "icon/" + type + ".png";
+            }
             var marker = new google.maps.Marker({
                 position: position,
                 icon:this.icon,
@@ -106,8 +116,5 @@ class Festival {
             }
             
         }
-        getTheName(){
-            var lenom = $(this);
-            console.log(lenom);
-        }
+        
 }

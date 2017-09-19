@@ -56,11 +56,17 @@ festival.map.addListener("click", function (event) {
                         if(x==3){
                             var infos = lesFestival[i][key];    
                         }
+                        if(x==4){
+                            var dateDebut = lesFestival[i][key];    
+                        }
+                        if(x==5){
+                            var dateFin = lesFestival[i][key];    
+                        }
                         x++;
                         
                     }
                     
-                    var marker = festival.addMarker( latLng, title, type );
+                    var marker = festival.addMarker( latLng, title, type, dateDebut, dateFin );
                     festival.addInfos( infos, marker );    
                 }
         }
@@ -80,13 +86,13 @@ $("#subFest").click(function(){
         var dateFin = $("#dateFin").val();
         var bon = dates.validerDateSaissie(dateDebut,dateFin);
         if (bon == true){
-        var marker = festival.addMarker( latLng, title, type );
+        var marker = festival.addMarker( latLng, title, type, dateDebut, dateFin );
         var infos = "<div id=\"info\">";
         infos += "<h1>" + title + "</h1>";
         infos += "<h3>Type de musique: " + type + "</h3>";
         infos += "<h4>Debut du festival: <span id='debut'>" + dateDebut + "</span></h4>";
         infos += "<h4>Fin du festival: <span id='fin'>" + dateFin + "</h4>";
-        infos += "<button class='participe1' >Participez</button>";
+        infos += "<button class='participe1' id='" + title + "'>Participez</button>";
         infos += "<p id='participe2'>J'y participe</p>";
         infos += "<p id='encours'>En cours</p>";
         infos += "</div>";
@@ -118,6 +124,9 @@ $(".butType").click(function(){
             var type = $(this).attr("id");
             festival.filter(type);
         });
+
+
+
 $("#afficheFestivals").click(function(){
     festival.showAll();
 });
@@ -131,7 +140,47 @@ $(document).on("change", "#name", function(){
     $("#blocUtilisateur").fadeOut(300);
 })
 $(document).on("click", ".participe1", function(){
-    festival.getTheName();
+    var titre = $(this).parent().children('h1').html();
+    $(this).parent().css("background-color","green");
+    $(this).parent().css("color","white");
+    $(this).css("display", "none");
+    $(this).parent().children("#participe2").css("display", "block");
+})
+
+$(".butType2").click(function(){
+    festival.showNone();
+    
+    if(localStorage.getItem("festival")){
+        var festival_json = localStorage.getItem("festival");
+        var lesFestival = JSON.parse(festival_json);
+        
+        for(var i = 0; i<lesFestival.length ; i++)
+            {   var x=0;
+                for(var key in lesFestival[i]){
+                    
+                    if(x==1){
+                        var title = lesFestival[i][key];
+                    }
+                    if(x==4){
+                        var dateDebutFestival = lesFestival[i][key];    
+                    }
+                    if(x==5){
+                        var dateFinFestival = lesFestival[i][key];    
+                    }
+                    x++;
+                    
+                }
+               
+                   
+                   var stampDebutFestival = dates.getTimeStamp(dateDebutFestival);
+                   var stampFinFestival = dates.getTimeStamp(dateFinFestival);
+                   var aujourdhui = Date.now();
+                   if((aujourdhui >= stampDebutFestival) && (aujourdhui <= stampFinFestival)) {
+
+                        festival.showOne(title);
+                   }
+            }
+    }
 })
 
 $(document).on("click", "#loadDate", function(){
@@ -174,5 +223,6 @@ $(document).on("click", "#loadDate", function(){
                 }
         }
     }
+
 
 });

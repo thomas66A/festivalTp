@@ -54,4 +54,15 @@ class Dates {
                     return true;
                 }
         }
+        setTheIcon(debut, fin){
+            var debutFest = this.getTimeStamp(debut);
+            var finFest = this.getTimeStamp(fin);
+            var aujourdhui = Date.now();
+            if((aujourdhui >= debutFest) && (aujourdhui <= finFest)){
+                return true
+            }
+            else{
+                return false;
+            }
+        }
     }
