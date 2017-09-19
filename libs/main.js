@@ -81,6 +81,7 @@ $("#subFest").click(function(){
 
         var latLng = positionFestival;
         var title = $("#festName").val();
+        if(title){
         var type = festival.$type.val();
         var dateDebut = $("#dateDebut").val();
         var dateFin = $("#dateFin").val();
@@ -117,7 +118,12 @@ $("#subFest").click(function(){
         $("#gpsCoords").val("");
         $("#form").css("display","none");
         festival.attrapeNom();
+        festival.showAll();
         }
+            }
+            else{
+                alert("le nom n'est pas remplis");
+            }
         });
 
 $(".butType").click(function(){
