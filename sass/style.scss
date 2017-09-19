@@ -132,8 +132,27 @@ nav{
     }
 }
 #info{
+    background-color:yellow;
+    color:red;
+    padding:5px;
+    text-align: center;
     h1{
         font-size:1.2em;
         font-weight:bold;
+    }
+    button{
+        width:100%;
+        background-color:red;
+        color:yellow;
+    }
+    #participe2{
+        display:none;
+        background-color:red;
+        color:yellow;
+    }
+    #encours{
+        display: none;
+        background-color:green;
+        color:white;
     }
 }

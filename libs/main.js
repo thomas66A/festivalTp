@@ -13,12 +13,19 @@ $(function(){
 })
 
 
+
+
 var festival = new Festival();
+var dates = new Dates();
 var positionFestival = {};
 festival.main = function(){
     var position = [];
+
+
+
+
     
-    festival.map.addListener("click", function (event) {
+festival.map.addListener("click", function (event) {
         if($("#form").css("display") == "flex"){
             var gps = $("#gpsCoords");
             var pos = event.latLng;    
@@ -71,13 +78,15 @@ $("#subFest").click(function(){
         var type = festival.$type.val();
         var dateDebut = $("#dateDebut").val();
         var dateFin = $("#dateFin").val();
+        var bon = dates.validerDateSaissie(dateDebut,dateFin);
+        if (bon == true){
         var marker = festival.addMarker( latLng, title, type );
         var infos = "<div id=\"info\">";
         infos += "<h1>" + title + "</h1>";
         infos += "<h3>Type de musique: " + type + "</h3>";
         infos += "<h4>Debut du festival: <span id='debut'>" + dateDebut + "</span></h4>";
         infos += "<h4>Fin du festival: <span id='fin'>" + dateFin + "</h4>";
-        infos += "<button id='participe1'>Participez</button>";
+        infos += "<button class='participe1' >Participez</button>";
         infos += "<p id='participe2'>J'y participe</p>";
         infos += "<p id='encours'>En cours</p>";
         infos += "</div>";
@@ -102,6 +111,7 @@ $("#subFest").click(function(){
         $("#gpsCoords").val("");
         $("#form").css("display","none");
         festival.attrapeNom();
+        }
         });
 
 $(".butType").click(function(){
@@ -118,6 +128,51 @@ $("#utilisateur").click(function(){
 $(document).on("change", "#name", function(){
     var name = $("#name").val();
     festival.showByName(name);
+    $("#blocUtilisateur").fadeOut(300);
+})
+$(document).on("click", ".participe1", function(){
+    festival.getTheName();
 })
 
-var dates = new Dates();
+$(document).on("click", "#loadDate", function(){
+    var dateDebutUtilisateur = $("#dateDebut1").val();
+    var dateFinUtilisateur = $("#dateFin1").val();
+    var bon = dates.validerDateSaissie(dateDebutUtilisateur, dateFinUtilisateur);
+    if(bon == true){
+        festival.showNone();
+        $("#blocUtilisateur").fadeOut(300);
+        if(localStorage.getItem("festival")){
+            var festival_json = localStorage.getItem("festival");
+            var lesFestival = JSON.parse(festival_json);
+            
+            for(var i = 0; i<lesFestival.length ; i++)
+                {   var x=0;
+                    for(var key in lesFestival[i]){
+                        
+                        if(x==1){
+                            var title = lesFestival[i][key];
+                        }
+                        if(x==4){
+                            var dateDebutFestival = lesFestival[i][key];    
+                        }
+                        if(x==5){
+                            var dateFinFestival = lesFestival[i][key];    
+                        }
+                        x++;
+                        
+                    }
+                   
+                       var stampDebutUtilisateur = dates.getTimeStamp(dateDebutUtilisateur);
+                       var stampFinUtilisateur = dates.getTimeStamp(dateFinUtilisateur);
+                       var stampDebutFestival = dates.getTimeStamp(dateDebutFestival);
+                       var stampFinFestival = dates.getTimeStamp(dateFinFestival);
+
+                       if((stampDebutFestival <= stampFinUtilisateur) && (stampFinFestival >= stampDebutUtilisateur)) {
+
+                            festival.showOne(title);
+                       }
+                }
+        }
+    }
+
+});

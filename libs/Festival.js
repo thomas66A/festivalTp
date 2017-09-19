@@ -66,6 +66,20 @@ class Festival {
             for(var marker of this.markers){
                 marker.setVisible(true);
             }
+        };
+        showNone(){
+            for(var marker of this.markers){
+                marker.setVisible(false);
+            }
+        };
+
+        showOne(name){
+            for(var marker of this.markers){
+                
+                    if( marker.title == name ) {
+                        marker.setVisible(true);
+                    }
+                }
         }
 
         showByName(name){
@@ -91,5 +105,9 @@ class Festival {
                 $("#name").append(affiche);
             }
             
+        }
+        getTheName(){
+            var lenom = $(this);
+            console.log(lenom);
         }
 }

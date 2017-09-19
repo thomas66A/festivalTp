@@ -33,4 +33,25 @@ class Dates {
             this.$dateFin1.datepicker( options );
     
         }
+        getTimeStamp(ladate){
+        var laDate = ladate;
+        laDate = laDate.split("/");
+        var formaterDate = laDate[1] + "/"+ laDate[0] + "/" + laDate[2];
+        return new Date(formaterDate).getTime();
+        }
+
+        validerDateSaissie(debut, fin){
+            var debutStamp = this.getTimeStamp(debut);
+            var finStamp = this.getTimeStamp(fin);
+            if(finStamp<debutStamp)
+                {
+                    alert("la date de fin doit etre superieure à la date du debut ");
+                    return false;
+                
+                }
+            else
+                {
+                    return true;
+                }
+        }
     }
